@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Textr</title>
+</head>
+<body>
+<h1>Welcome to Textr!</h1>
+<form action="/text" method="post" id="form">
+<table>
+<tr><td>
+TO: </td><td><input type="text" name="to" value="5555555555">
+</td></tr>
+<tr><td>
+PROVIDER: </td><td>
+<select name="provider" form="form">
+<option value="alltell">Alltell</option>
+<option value="att">AT&T</option>
+<option value="boost">Boost Mobile</option>
+<option value="comcast">Comcast</option>
+<option value="metropcs">Metro PCS</option>
+<option value="sprint">Sprint</option>
+<option value="tmobile">T-Mobile</option>
+<option value="virgin">Vigin Mobile</option>
+<option value="verizon" selected="selected">Verizon</option>
+</select>
+</td></tr>
+<tr><td>
+MESSAGE: </td><td><input type="text" name="message" value="Hello from Textr"></br>
+</td></tr>
+<tr><td>
+DATE: </td><td><input type="text" name="date" value="2014 3 20 17 30">
+</td></tr>
+</table>
+<input type="submit" value="Send Text">
+</form>
+
+</body>
+</html>
