@@ -40,7 +40,7 @@ def text_runner(delay):
     sendtexts = [text for text in texts if text.ready() == True]
     texts = [text for text in texts if text not in sendtexts]
 
-    f = open('texts', 'w')
+    f = open('texts', 'w+')
     for text in texts:
         f.write(text.encode()+'\n')
     f.close()
