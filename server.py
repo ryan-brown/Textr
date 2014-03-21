@@ -15,7 +15,7 @@ app = Flask(__name__, static_url_path='')
 htmltop = '<html><head><title>Textr</title></head><body>'
 htmlbot = '</body></html>'
 
-params = ['to', 'provider', 'message', 'date', 'validate']
+params = ['to', 'provider', 'message', 'year', 'month', 'day', 'hour', 'minute', 'second', 'validate']
 
 #texts = [Text('2394041933', 'verizon', 'Server starting', datetime.datetime.now())]
 texts = []
@@ -34,20 +34,24 @@ def text():
     to = request.form["to"]
     provider = request.form["provider"]
     message = request.form["message"]
-    dateraw = request.form["date"]
+    year = int(request.form["year"])
+    month = int(request.form["month"])
+    day = int(request.form["day"])
+    hour = int(request.form["hour"])
+    minute = int(request.form["minute"])
+    second = int(request.form["second"])
     validate = request.form["validate"]
-
-    return generate_text(to, provider, message, dateraw, validate)
-
-def generate_text(to, provider, message, dateraw, validate):
-    if validate != "":
-        return htmltop + "Stahp it bots." + htmlbot
-
+    
     try:
-        year, month, day, hour, minute, second = map(int, dateraw.split())
         date = datetime.datetime(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
     except:
         return htmltop + "Error 400 - Invalid date format. <br/>use: 'year month day hour minute'<br/>For example '2014 7 5 15 35 15' for July 5, 2014 at 3:35PM and 15 seconds" + htmlbot
+    
+    return generate_text(to, provider, message, date, validate)
+
+def generate_text(to, provider, message, date, validate):
+    if validate != "":
+        return htmltop + "Stahp it bots." + htmlbot
 
     message_len = len(message)
     if message_len > 100:
