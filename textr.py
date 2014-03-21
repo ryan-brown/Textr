@@ -11,7 +11,7 @@ class Textr:
         self.server.login(self.me, self.password)
 
     def send(self, text):
-        self.server.sendmail(self.me, text.you, text.message)
+        self.server.sendmail(self.me, text.you, '\n'+text.message)
 
     def destroy(self):
         self.server.close()
