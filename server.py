@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import send_from_directory
+import os
 from time import sleep
 import datetime
 import thread
@@ -26,6 +27,9 @@ def text():
     provider = request.form["provider"]
     message = request.form["message"]
     dateraw = request.form["date"]
+    validate = request.form["validate"]
+    if validate != "":
+        return "Stahp it bots."
 
     year, month, day, hour, minute = map(int, dateraw.split())
 
@@ -56,13 +60,12 @@ def favicon():
     return send_from_directory(app.root_path, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 def load_texts():
-    f = open('texts', 'r')        
-    lines = f.readlines()
-    for line in lines:
-        texts.append(Text.decode(line))
-    f.close()
+    if os.path.isfile('texts'):
+        lines = [line.strip('\n') for line in open('texts', 'r')]
+        for line in lines:
+            texts.append(Text.decode(line))
 
 if __name__ == '__main__':
     load_texts()
-    thread.start_new_thread(text_runner, (15,))
+    thread.start_new_thread(text_runner, (10,))
     app.run('0.0.0.0', 80)

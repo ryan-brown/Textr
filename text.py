@@ -29,7 +29,7 @@ class Text:
     @staticmethod
     def decode(data):
         to, provider, message, rawtime = data.split('|')
-        time = datetime.datetime.strptime(rawtime, "%Y-%m-%d %H:M:%S")
+        time = datetime.datetime.strptime(rawtime, "%Y-%m-%d %H:%M:%S")
         return Text(to, provider, message, time)
 
     def __eq__(self, other):
