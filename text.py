@@ -23,14 +23,8 @@ class Text:
     def ready(self):
         return datetime.datetime.now() > self.time
 
-    def encode(self):
+    def __str__(self):
         return '|'.join(map(str, [self.to, self.provider, self.message, self.time]))
-
-    @staticmethod
-    def decode(data):
-        to, provider, message, rawtime = data.split('|')
-        time = datetime.datetime.strptime(rawtime, "%Y-%m-%d %H:%M:%S")
-        return Text(to, provider, message, time)
 
     def __eq__(self, other):
         return (self.you == other.you and self.message == other.message and self.time == other.time)
