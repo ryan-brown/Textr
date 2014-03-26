@@ -82,19 +82,18 @@ def generate_text(to, provider, message, date, validate):
 
 def text_runner(delay):
     global texts
-    
-    sendtexts = [text for text in texts if text.ready() == True]
-    texts = [text for text in texts if text not in sendtexts]
+    while 1:
+        sendtexts = [text for text in texts if text.ready() == True]
+        texts = [text for text in texts if text not in sendtexts]
 
-    f = open('texts.pickle', 'wb+')
-    pickle.dump(texts, f)
-    f.close()
+        f = open('texts.pickle', 'wb+')
+        pickle.dump(texts, f)
+        f.close()
 
-    for text in sendtexts:
-        textr.send(text)
-    
-    sleep(delay)
-    text_runner(delay)
+        for text in sendtexts:
+            textr.send(text)
+        
+        sleep(delay)
 
 @app.route('/favicon.ico')
 def favicon():
@@ -109,5 +108,5 @@ def load_texts():
 
 if __name__ == '__main__':
     load_texts()
-    thread.start_new_thread(text_runner, (5,))
+    thread.start_new_thread(text_runner, (1,))
     app.run('0.0.0.0', 80)
